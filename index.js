@@ -53,14 +53,14 @@ app.get("/login", async (req, res) => {
   var params = req.body;
   var { code, type } = params;
   const APP_ID = "wxa796ef0e22200d18";
-  const APP_SECRET = "26d137bc63271075bc7d57ee2e437825";
+  // Move this to ENV
   if (type === "wxapp") {
     // code 换取 openId 和 sessionKey 的主要逻辑
     requests
       .get("https://api.weixin.qq.com/sns/jscode2session", {
         params: {
           appid: APP_ID,
-          secret: APP_SECRET,
+          secret: process.env.APP_SECRET,
           js_code: code,
           grant_type: "authorization_code",
         },
@@ -81,6 +81,9 @@ app.get("/login", async (req, res) => {
             user_name: "test",
           },
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   } else {
     throw new Error("未知的授权类型");
