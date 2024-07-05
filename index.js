@@ -49,6 +49,44 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
+app.get("/login", async (req, res) => {
+  var params = req.body;
+  var { code, type } = params;
+  const APP_ID = "wxa796ef0e22200d18";
+  const APP_SECRET = "26d137bc63271075bc7d57ee2e437825";
+  if (type === "wxapp") {
+    // code 换取 openId 和 sessionKey 的主要逻辑
+    requests
+      .get("https://api.weixin.qq.com/sns/jscode2session", {
+        params: {
+          appid: APP_ID,
+          secret: APP_SECRET,
+          js_code: code,
+          grant_type: "authorization_code",
+        },
+      })
+      .then(({ data }) => {
+        var openId = data.openid;
+        var user = {
+          openId,
+          sessionKey: data.session_key,
+        };
+        req.session.openId = user.openId;
+        req.user = user;
+      })
+      .then(() => {
+        res.send({
+          code: 0,
+          data: {
+            user_name: "test",
+          },
+        });
+      });
+  } else {
+    throw new Error("未知的授权类型");
+  }
+});
+
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
