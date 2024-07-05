@@ -53,10 +53,10 @@ app.get("/login", async (req, res) => {
   var params = req.body;
   var { code, type } = params;
   const APP_ID = "wxa796ef0e22200d18";
-  // Move this to ENV
+  console.log("环境秘密:" + process.env.APP_SECRET);
+  console.log(params);
   if (type === "wxapp") {
-    // code 换取 openId 和 sessionKey 的主要逻辑
-    requests
+    https
       .get("https://api.weixin.qq.com/sns/jscode2session", {
         params: {
           appid: APP_ID,
