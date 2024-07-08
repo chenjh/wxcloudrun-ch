@@ -69,18 +69,15 @@ app.get("/login", async (req, res) => {
         },
       })
       .then((response) => {
-        console.log("~~~");
+        console.log("~~~" + response.data.openid);
+        console.log("~~~1" + response.openid);
         console.log(response);
         var openId = response.data.openid;
-        var user = {
-          openId,
-          sessionKey: response.data.session_key,
-        };
-        req.session.openId = user.openId;
-        req.user = user;
         res.send({
           code: 0,
           data: {
+            openId: response.data.openid,
+            session_key: response.data.session_key,
             user_name: "test",
           },
         });
