@@ -74,7 +74,7 @@ app.get("/login", async (req, res) => {
         var openId = res.data.openid;
         var user = {
           openId,
-          sessionKey: data.session_key,
+          sessionKey: res.data.session_key,
         };
         req.session.openId = user.openId;
         req.user = user;
