@@ -59,17 +59,6 @@ app.get("/login", async (req, res) => {
   if (type === "wxapp") {
     console.log("2type is :" + type);
     console.log("环境秘密:" + process.env.APP_SECRET);
-    console.log(params);
-    let options = {
-      method: "POST",
-      url: "https://api.weixin.qq.com/sns/jscode2session?",
-      formData: {
-        appid: APP_ID,
-        secret: process.env.APP_SECRET,
-        js_code: code,
-        grant_type: "authorization_code",
-      },
-    };
     axios
       .get("https://api.weixin.qq.com/sns/jscode2session", {
         params: {
