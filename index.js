@@ -68,18 +68,16 @@ app.get("/login", async (req, res) => {
           grant_type: "authorization_code",
         },
       })
-      .then((res) => {
+      .then((response) => {
         console.log("~~~");
-        console.log(res);
-        var openId = res.data.openid;
+        console.log(response);
+        var openId = response.data.openid;
         var user = {
           openId,
-          sessionKey: res.data.session_key,
+          sessionKey: response.data.session_key,
         };
         req.session.openId = user.openId;
         req.user = user;
-      })
-      .then(() => {
         res.send({
           code: 0,
           data: {
