@@ -2,9 +2,8 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const https = require("https");
 const { init: initDB, Counter } = require("./db");
-
+const axios = require("axios");
 const logger = morgan("tiny");
 
 const app = express();
@@ -57,8 +56,22 @@ app.get("/login", async (req, res) => {
   const APP_ID = "wxa796ef0e22200d18";
   console.log("环境秘密:" + process.env.APP_SECRET);
   console.log(params);
+  console.log("1type is :" + type);
   if (type === "wxapp") {
-    https
+    console.log("2type is :" + type);
+    console.log("环境秘密:" + process.env.APP_SECRET);
+    console.log(params);
+    let options = {
+      method: "POST",
+      url: "https://api.weixin.qq.com/sns/jscode2session?",
+      formData: {
+        appid: APP_ID,
+        secret: process.env.APP_SECRET,
+        js_code: code,
+        grant_type: "authorization_code",
+      },
+    };
+    axios
       .get("https://api.weixin.qq.com/sns/jscode2session", {
         params: {
           appid: APP_ID,
