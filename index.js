@@ -55,8 +55,8 @@ app.get("/login", async (req, res) => {
   var { code, type } = params;
   const APP_ID = "wxa796ef0e22200d18";
   console.log("环境秘密:" + process.env.APP_SECRET);
-  console.log("req" + req);
-  console.log("res" + res);
+  console.log(req);
+  console.log(res);
   console.log("1type is :" + type);
   if (type === "wxapp") {
     console.log("2type is :" + type);
