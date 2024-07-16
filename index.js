@@ -52,27 +52,21 @@ app.get("/api/wx_openid", async (req, res) => {
 
 app.get("/login", async (req, res) => {
   var { code, type } = req.query;
-  const APP_ID = "wxa796ef0e22200d18";
+  console.log("app_id:" + process.env.APP_ID);
   console.log("环境秘密:" + process.env.APP_SECRET);
-  console.log(req);
   console.log("1type is :" + type);
   if (type === "wxapp") {
     console.log("2type is :" + type);
-    console.log("环境秘密:" + process.env.APP_SECRET);
     axios
       .get("https://api.weixin.qq.com/sns/jscode2session", {
         params: {
-          appid: APP_ID,
+          appid: process.env.APP_ID,
           secret: process.env.APP_SECRET,
           js_code: code,
           grant_type: "authorization_code",
         },
       })
       .then((response) => {
-        console.log("~~~" + response.data.openid);
-        console.log("~~~1" + response.openid);
-        console.log(response);
-        var openId = response.data.openid;
         res.send({
           code: 0,
           data: {
