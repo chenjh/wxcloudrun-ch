@@ -61,6 +61,7 @@ app.get("/verifyPhoneNumber", async (req, res) => {
       },
     })
     .then((response) => {
+      console.log("~~~成功");
       console.log(response);
       res.send({
         code: 0,
@@ -70,6 +71,7 @@ app.get("/verifyPhoneNumber", async (req, res) => {
       });
     })
     .catch((err) => {
+      console.log("~~~失败");
       console.log(err);
     });
 });
