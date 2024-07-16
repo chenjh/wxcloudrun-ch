@@ -55,7 +55,7 @@ app.get("/verifyPhoneNumber", async (req, res) => {
   console.log("code is: " + code);
 
   axios
-    .post("https://api.weixin.qq.com/sns/jscode2session", {
+    .post("https://api.weixin.qq.com/wxa/business/getuserphonenumber", {
       params: {
         code: code,
       },
