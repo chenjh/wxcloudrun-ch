@@ -68,6 +68,9 @@ app.get("/verifyPhoneNumber", async (req, res) => {
           phoneInfo: response.data.phone_info,
         },
       });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 
