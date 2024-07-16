@@ -50,6 +50,27 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
+app.get("/verifyPhoneNumber", async (req, res) => {
+  var { code } = req.query;
+  console.log("code is: " + code);
+
+  axios
+    .post("https://api.weixin.qq.com/sns/jscode2session", {
+      params: {
+        code: code,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      res.send({
+        code: 0,
+        data: {
+          phoneInfo: response.data.phone_info,
+        },
+      });
+    });
+});
+
 app.get("/login", async (req, res) => {
   var { code, type } = req.query;
   console.log("app_id:" + process.env.APP_ID);
