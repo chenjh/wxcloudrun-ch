@@ -56,9 +56,7 @@ app.get("/verifyPhoneNumber", async (req, res) => {
 
   axios
     .post("https://api.weixin.qq.com/wxa/business/getuserphonenumber", {
-      params: {
-        code: code,
-      },
+      code: code,
     })
     .then((response) => {
       console.log("~~~成功");
